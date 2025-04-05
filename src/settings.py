@@ -30,6 +30,7 @@ else:
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://djangoauth-ggpf.onrender.com']
 
 # Application definition
 

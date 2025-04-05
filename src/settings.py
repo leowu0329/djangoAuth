@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,8 +44,10 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     "django.contrib.sites",
+    'import_export',
     'allauth',
     'allauth.account',
+    'users',
 
 
 ]
@@ -70,7 +73,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-
+AUTH_USER_MODEL = "users.CustomUser"  # 替換 "yourapp" 為你的 app 名稱
 ROOT_URLCONF = 'src.urls'
 
 TEMPLATES = [
@@ -105,19 +108,9 @@ if ENVIRONMENT == 'development':
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'djangotest_gls4',
-            'USER': 'djangotest_gls4_user',
-            'PASSWORD': 'XHkIU1YSQ8w2GPaeiKeXgR6Bc9OWVsMZ',
-            'HOST': 'dpg-cvo1ke24d50c739bbso0-a.oregon-postgres.render.com',
-            'PORT': '5432',
-            'OPTIONS': {
-                'sslmode': 'require',
-                'connect_timeout': 10,
-            },
-        }
+        'default': dj_database_url.parse(env('DATABASE_URL'))
     }
+
 
 
 
@@ -195,3 +188,16 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 # 註冊成功後顯示「驗證信箱」頁面
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 使用者點擊信就直接驗證（不需要按按鈕）
+
+
+JAZZMIN_SETTINGS = {
+    'site_title': '毛毛與秀秀的資料庫',
+    'site_header': 'Hello World',
+    'site_brand': 'I am brand',
+    'welcome_sign': '歡迎來到毛毛與秀秀的資料庫',
+    'copyright': 'ryowuandjanet.com',
+}
+
+from import_export.formats.base_formats import XLSX, CSV,JSON
+EXPORT_FORMATS = [XLSX, CSV,JSON]
+IMPORT_FORMATS = [XLSX, CSV,JSON]

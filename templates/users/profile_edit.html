@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  編輯個人資料
+{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="card-title">編輯個人資料</h2>
+            <a href="{% url 'profile' %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> 返回</a>
+          </div>
+
+          <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <!-- 基本資訊 -->
+            <div class="mb-4">
+              <h5 class="border-bottom pb-2">基本資訊</h5>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="{{ form.identity_id.id_for_label }}" class="form-label">身分ID</label>
+                  {{ form.identity_id }}
+                </div>
+                <div class="col-md-6">
+                  <label for="{{ form.birthday.id_for_label }}" class="form-label">生日</label>
+                  {{ form.birthday }}
+                </div>
+                <div class="col-md-6">
+                  <label for="{{ form.phone.id_for_label }}" class="form-label">市話</label>
+                  {{ form.phone }}
+                </div>
+                <div class="col-md-6">
+                  <label for="{{ form.mobile.id_for_label }}" class="form-label">手機</label>
+                  {{ form.mobile }}
+                </div>
+              </div>
+            </div>
+
+            <!-- 系統資訊 -->
+            <div class="mb-4">
+              <h5 class="border-bottom pb-2">系統資訊</h5>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="{{ form.role.id_for_label }}" class="form-label">權限</label>
+                  {{ form.role }}
+                  {% if form.role.help_text %}
+                    <div class="form-text">{{ form.role.help_text }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-4">
+                  <label for="{{ form.work_area.id_for_label }}" class="form-label">工作轄區</label>
+                  {{ form.work_area }}
+                  {% if form.work_area.help_text %}
+                    <div class="form-text">{{ form.work_area.help_text }}</div>
+                  {% endif %}
+                </div>
+                <div class="col-md-4">
+                  <label for="{{ form.identity_type.id_for_label }}" class="form-label">身分別</label>
+                  {{ form.identity_type }}
+                  {% if form.identity_type.help_text %}
+                    <div class="form-text">{{ form.identity_type.help_text }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- 地址資訊 -->
+            <div class="mb-4">
+              <h5 class="border-bottom pb-2">地址資訊</h5>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="{{ form.county.id_for_label }}" class="form-label">縣市</label>
+                  {{ form.county }}
+                </div>
+                <div class="col-md-4">
+                  <label for="{{ form.district.id_for_label }}" class="form-label">鄉鎮市區</label>
+                  {{ form.district }}
+                </div>
+                <div class="col-md-4">
+                  <label for="{{ form.village.id_for_label }}" class="form-label">村里</label>
+                  {{ form.village }}
+                </div>
+                <div class="col-md-2">
+                  <label for="{{ form.neighborhood.id_for_label }}" class="form-label">鄰</label>
+                  {{ form.neighborhood }}
+                </div>
+                <div class="col-md-4">
+                  <label for="{{ form.street.id_for_label }}" class="form-label">街路</label>
+                  {{ form.street }}
+                </div>
+                <div class="col-md-2">
+                  <label for="{{ form.section.id_for_label }}" class="form-label">段</label>
+                  {{ form.section }}
+                </div>
+                <div class="col-md-2">
+                  <label for="{{ form.lane.id_for_label }}" class="form-label">巷</label>
+                  {{ form.lane }}
+                </div>
+                <div class="col-md-2">
+                  <label for="{{ form.alley.id_for_label }}" class="form-label">弄</label>
+                  {{ form.alley }}
+                </div>
+                <div class="col-md-2">
+                  <label for="{{ form.number.id_for_label }}" class="form-label">號</label>
+                  {{ form.number }}
+                </div>
+                <div class="col-md-2">
+                  <label for="{{ form.floor.id_for_label }}" class="form-label">樓</label>
+                  {{ form.floor }}
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> 儲存變更</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 表單驗證
+      const forms = document.querySelectorAll('.needs-validation')
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          'submit',
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+    
+              // 顯示錯誤訊息
+              const invalidInputs = form.querySelectorAll(':invalid')
+              invalidInputs.forEach((input) => {
+                showError(input.validationMessage || '請檢查輸入資料是否正確')
+              })
+            }
+            form.classList.add('was-validated')
+          },
+          false
+        )
+      })
+    })
+  </script>
+{% endblock %}

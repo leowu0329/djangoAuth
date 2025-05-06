@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  首頁
+{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body text-center">
+          {% if user.is_authenticated %}
+            <h2 class="card-title mb-4">歡迎回來！</h2>
+            <p class="lead">您好，{{ user.username }}！</p>
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-primary">登出</button>
+            </form>
+          {% else %}
+            <h2 class="card-title mb-4">歡迎來到新聞網站</h2>
+            <p class="lead mb-4">請登入或註冊以繼續</p>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <a href="{% url 'login' %}" class="btn btn-primary">登入</a>
+              <a href="{% url 'signup' %}" class="btn btn-outline-primary">註冊</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
